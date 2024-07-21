@@ -1,30 +1,55 @@
-import './App.css';
+import { useEffect, useState } from "react";
+import { CircularProgress } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { auth } from "./config/firebase";
+import routes from "./config/routes";
+import Center from "./components/utils/Center";
+import AuthChecker from "./components/auth/AuthChecker";
 
-import {
-    createBrowserRouter,
-    RouterProvider,
-} from 'react-router-dom';
-import Home from "./pages/Home";
-import Layout from "./pages/Layout";
+function App() {
+  const [loading, setLoading] = useState(true);
 
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Layout/>,
-        children: [
-            {
-                index: true,
-                element: <Home/>
-            },
-            {
-                path: 'about',
-                lazy: () => import("./pages/About")
-            }
-        ]
-    }
-]);
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.info("User detected.");
+      } else {
+        console.info("No user detected");
+      }
+      setLoading(false);
+    });
+  }, []);
 
+  if (loading)
+    return (
+      <Center>
+        <CircularProgress />
+      </Center>
+    );
 
-export default function App() {
-    return <RouterProvider router={router} fallbackElement={<p>Loading...</p>}/>;
-};
+  return (
+    <div>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <Routes>
+          {routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              element={
+                route.protected ? (
+                  <AuthChecker>
+                    <route.component />
+                  </AuthChecker>
+                ) : (
+                  <route.component />
+                )
+              }
+            />
+          ))}
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
