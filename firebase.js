@@ -47,7 +47,6 @@ function signIn() {
     })
     .catch(err => {
       console.log(`Error during sign in: ${err.message}`);
-      window.alert('Sign in failed. Retry or check your browser logs.');
     });
 }
 // [END cloudrun_end_user_firebase_sign_in]
