@@ -1,11 +1,30 @@
 import './App.css';
 
-function App() {
-  return (
-      <div>
-        Begone, despoiler! Your visage disgusts me.
-      </div>
-  );
-}
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from 'react-router-dom';
+import Home from "./pages/Home";
+import Layout from "./pages/Layout";
 
-export default App;
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Layout/>,
+        children: [
+            {
+                index: true,
+                element: <Home/>
+            },
+            {
+                path: 'about',
+                lazy: () => import("./pages/About")
+            }
+        ]
+    }
+]);
+
+
+export default function App() {
+    return <RouterProvider router={router} fallbackElement={<p>Loading...</p>}/>;
+};
