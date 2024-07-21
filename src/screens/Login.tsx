@@ -7,8 +7,7 @@ import Center from "../components/utils/Center";
 interface Props {}
 
 const tabIdToURL: { [id: number]: string } = {
-  0: "login",
-  1: "register",
+  0: "login"
 };
 
 const Login = ({}: Props) => {
@@ -45,15 +44,10 @@ const Login = ({}: Props) => {
         <Box sx={{ borderBottom: 1, borderColor: "divider", width: "100%" }}>
           <Tabs value={value} onChange={handleChange} variant="fullWidth">
             <Tab sx={{ px: { lg: 20, xs: 6 } }} label="Login" />
-            <Tab sx={{ px: { lg: 16, xs: 6 } }} label="Register" />
           </Tabs>
         </Box>
         {/* login */}
         <TabPanel value={value} index={0}>
-          <AuthContainer />
-        </TabPanel>
-        {/* register */}
-        <TabPanel value={value} index={1}>
           <AuthContainer />
         </TabPanel>
       </Box>
