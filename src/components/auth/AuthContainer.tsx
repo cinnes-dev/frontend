@@ -19,8 +19,7 @@ const AuthContainer = (props: Props) => {
       .then((creds) => {
         setDisabled(false);
 
-        console.log("TOKEN: " + creds.user.getIdToken());
-
+        creds.user.getIdToken().then((idToken) => console.info("TOKEN: " + idToken));
         console.info("TODO: navigate to authenticated screen");
         navigate("/");
       })
