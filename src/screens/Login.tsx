@@ -10,7 +10,7 @@ const tabIdToURL: { [id: number]: string } = {
   0: "login"
 };
 
-const Login = ({}: Props) => {
+const Login = (_: Props) => {
   // getting and setting URL params
   const [searchParams, setSearchParams] = useSearchParams();
 

@@ -4,7 +4,7 @@ import Center from "../components/utils/Center";
 
 interface Props {}
 
-const Home = ({}: Props) => {
+const Home = (_: Props) => {
   useEffect(() => {}, []);
 
   return (
